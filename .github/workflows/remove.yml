@@ -1,0 +1,28 @@
+name: CI-CD REMOVER
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Remover deployment'
+        required: true
+
+jobs:
+  Remover:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v3.1.0
+  
+      - name: Definindo o context
+        uses: Azure/k8s-set-context@v3.0
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.K8S_CONFIG }}
+  
+      - name: Remover ambiente
+        uses: Azure/k8s-delete@v1
+        with:
+          manifests: |
+            k8s/deployment.yaml
+#          namespace: ${{ github.event.inputs.environment }}
