@@ -39,7 +39,7 @@ kind: Deployment
 metadata:
   name: kubenews
 spec:
-  replicas: 10
+  replicas: 2
   selector:
     matchLabels:
       app: kubenews
@@ -50,9 +50,9 @@ spec:
     spec:
       containers:
       - name: kubenews
-        image: fabricioveronez/kube-news:v2
+        image: andmlima/app-blog:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         env:
         - name: DB_DATABASE
           value: kubenews
